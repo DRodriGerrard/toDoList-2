@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +6,5 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  faEye = faEye;
   title = 'toDoList2';
 }
