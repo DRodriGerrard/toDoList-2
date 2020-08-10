@@ -19,6 +19,8 @@
  </div>
 
  <ng-template #taskTemplate>
-  <app-task *ngFor="let task of tasks" [task]="task"></app-task>
+  <app-task *ngFor="let task of tasks" 
+  [task]="task"
+  (deleteEmitter)="removeTask($event)"></app-task>
  </ng-template>
 </div>
