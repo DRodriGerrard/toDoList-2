@@ -5,5 +5,10 @@
     <input type="text" class="form-control imput" [(ngModel)]="task.title"/>
    </div>
   </div>
+  <div class="col-">
+   <button type="button" class="btn btn-danger" (click)="emitDelete()">
+    <fa-icon [icon]="faTrash"></fa-icon>
+   </button>
+  </div>
  </div>
 </div>

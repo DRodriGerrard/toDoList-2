@@ -37,4 +37,15 @@ export class TaskService {
       this.httpError(error);
     });
   }
+
+  public deleteTasks(task) {
+    return this._httpClient.delete<Task>(this.httpURL+"/"+task.id)
+    .toPromise()
+    .then(() => {
+      alert("task deleted successfully!");
+    })
+    .catch((error) => {
+      this.httpError(error);
+    });
+  }
 }
