@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppComponent } from './app.component';
+import { TodolistComponent } from './components/todolist/todolist.component';
+import { TaskComponent } from './components/task/task.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TodolistComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
