@@ -1,21 +1,24 @@
-<div class="jumbotron">
- <div class="row">
-  <div class="col-sm">
-   <div class="form-group">
-    <input type="text" class="form-control input" [(ngModel)]="tasktitle" placeholder="New task"/>
+<div class="todolist">
+ <h1>toDoList 2</h1>
+ <div class="jumbotron">
+  <div class="row">
+   <div class="col-sm">
+    <div class="form-group">
+     <input type="text" class="form-control input" [(ngModel)]="tasktitle" placeholder="New task"/>
+    </div>
+   </div>
+   <div class="col-">
+    <button type="button" class="btn btn-secondary" (click)="tasktitle = ''">
+     <fa-icon [icon]="faEraser"></fa-icon>
+    </button>
+    <button type="button" class="btn btn-primary" (click)="addTask()">
+     <fa-icon [icon]="faPlus"></fa-icon>
+    </button>
    </div>
   </div>
-  <div class="col-">
-   <button type="button" class="btn btn-secondary" (click)="tasktitle = ''">
-    <fa-icon [icon]="faEraser"></fa-icon>
-   </button>
-   <button type="button" class="btn btn-primary" (click)="addTask()">
-    <fa-icon [icon]="faPlus"></fa-icon>
-   </button>
-  </div>
  </div>
-</div>
 
-<ng-template #taskTemplate>
- <app-task *ngFor="let task of tasks" [task]="task"></app-task>
-</ng-template>
+ <ng-template #taskTemplate>
+  <app-task *ngFor="let task of tasks" [task]="task"></app-task>
+ </ng-template>
+</div>

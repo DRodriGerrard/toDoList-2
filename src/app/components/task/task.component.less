@@ -1,0 +1,18 @@
+@import "../../../assets/less/variables.less";
+
+.jumbotron{
+ padding-top: @padding;
+ padding-bottom: @padding;
+ background-color: @back-color;
+
+ .row{
+   height: @height;
+
+   .col-{
+    height: @height;
+    display: grid;
+    grid-template-columns: @form-buttons;
+    column-gap: @gap;
+   }
+ }
+}

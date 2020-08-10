@@ -1,0 +1,30 @@
+@import "../../../assets/less/variables.less";
+
+.todolist{
+  margin: @top auto;
+  width: 60%;
+
+  h1 {
+   text-align: center;
+  }
+
+  .jumbotron{
+    padding-top: @padding;
+    padding-bottom: @padding;
+    background-color: @back-color;
+
+    .row{
+      height: @height;
+
+      .col-{
+       height: @height;
+       display: grid;
+       grid-template-columns: @form-buttons;
+       column-gap: @gap;
+      }
+    }
+  }
+}
+
+
+
