@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from "@angular/core";
 import { TaskService } from "../../services/task.service";
 import { Task } from "../../../../interfaces/task";
 import { v4 as uuidv4 } from "uuid";
@@ -13,6 +13,9 @@ import { faEraser } from "@fortawesome/free-solid-svg-icons";
 
 export class TodolistComponent implements OnInit {
 
+  @ViewChild(TemplateRef,{static:false}) taskT:TemplateRef<Task>;
+  @ViewChild(TemplateRef,{static:false, read:ViewContainerRef}) container:ViewContainerRef;
+
   faPlus = faPlus;
   faEraser = faEraser;
 
@@ -22,7 +25,7 @@ export class TodolistComponent implements OnInit {
   constructor(private _taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.receiveTasks(); 
+    this.receiveTasks();
   }
 
   addTask(){
@@ -38,11 +41,21 @@ export class TodolistComponent implements OnInit {
       created: finalDate
     }
     this.tasktitle = "";
-    this._taskService.postTasks(newTask).finally(()=>this.receiveTasks())
+    this._taskService.postTasks(newTask)
+    .finally(()=>this.receiveTasks())
   }
 
   receiveTasks(){
-    this._taskService.getTasks().then((data:Task[])=>this.tasks = data)
+    this._taskService.getTasks()
+    .then((data:Task[])=>{
+      this.tasks = data
+    })
+    .finally(()=>{
+      if(this.tasks != undefined){
+        this.container.clear();
+        this.container.createEmbeddedView(this.taskT);
+      }
+    })
   }
 
 }

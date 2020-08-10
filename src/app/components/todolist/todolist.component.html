@@ -16,6 +16,6 @@
  </div>
 </div>
 
-<div *ngIf="tasks.length > 0">
+<ng-template #taskTemplate>
  <app-task *ngFor="let task of tasks" [task]="task"></app-task>
-</div>
+</ng-template>
