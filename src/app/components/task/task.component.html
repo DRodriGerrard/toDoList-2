@@ -2,10 +2,23 @@
  <div class="row">
   <div class="col-sm">
    <div class="form-group">
-    <input type="text" class="form-control imput" [(ngModel)]="task.title"/>
+    <input type="text" class="form-control imput" [ngClass]="{'completed': task.completed}" [(ngModel)]="task.title" [disabled]="!editable" />
    </div>
   </div>
   <div class="col-">
+   <button type="button" class="btn" 
+    [ngClass]="{
+     'btn-success': !task.completed,
+     'btn-primary': task.completed
+    }" 
+    (click)="handlerComplete()"
+    [disabled]="editable">
+    <fa-icon [icon]="faCheck"></fa-icon>
+   </button>
+   <button type="button" #buttonEdit class="btn btn-warning" (click)="handlerEdit()" [disabled]="task.completed">
+    <fa-icon [icon]="faEdit" *ngIf="!editable"></fa-icon>
+    <fa-icon [icon]="faPlus" *ngIf="editable"></fa-icon>
+   </button>
    <button type="button" class="btn btn-danger" (click)="emitDelete()">
     <fa-icon [icon]="faTrash"></fa-icon>
    </button>

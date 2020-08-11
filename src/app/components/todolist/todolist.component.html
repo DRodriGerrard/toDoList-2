@@ -21,6 +21,7 @@
  <ng-template #taskTemplate>
   <app-task *ngFor="let task of tasks" 
   [task]="task"
-  (deleteEmitter)="removeTask($event)"></app-task>
+  (deleteEmitter)="removeTask($event)"
+  (editEmitter)="editTask($event)"></app-task>
  </ng-template>
 </div>

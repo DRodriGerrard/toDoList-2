@@ -4,15 +4,29 @@
  padding-top: @padding;
  padding-bottom: @padding;
  background-color: @back-color;
+ margin-bottom: @bottom;
 
  .row{
    height: @height;
 
+   .completed{
+     background-color: #bdecb6;
+   }
+
    .col-{
     height: @height;
     display: grid;
-    grid-template-columns: @form-buttons;
+    grid-template-columns: @task-buttons;
     column-gap: @gap;
+
+    button{
+      width: @buttonw;
+      height: @buttonh;
+    }
+
+    .btn-warning, .btn-warning:focus, .btn-warning:hover, .btn-warning:active{
+      color: white;
+    }
    }
  }
 }

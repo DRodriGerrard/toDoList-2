@@ -48,4 +48,12 @@ export class TaskService {
       this.httpError(error);
     });
   }
+
+  public patchTask(task) {
+    return this._httpClient.patch<Task>(this.httpURL+'/'+task.id, task)
+    .toPromise()
+    .catch((error) => {
+      this.httpError(error);
+    });
+  }
 }
