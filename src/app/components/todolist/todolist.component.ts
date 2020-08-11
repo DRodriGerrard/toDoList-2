@@ -63,4 +63,9 @@ export class TodolistComponent implements OnInit {
     .then(()=>this.receiveTasks())
   }
 
+  editTask(event:Task){
+    this._taskService.patchTask(event)
+    .then(()=>this.receiveTasks())
+  }
+
 }
