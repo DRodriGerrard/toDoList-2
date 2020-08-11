@@ -59,7 +59,7 @@ export class TodolistComponent implements OnInit {
   }
 
   removeTask(event:Task){
-    if(confirm("Are you sure?")) this._taskService.deleteTasks(event)
+    this._taskService.deleteTasks(event)
     .then(()=>this.receiveTasks())
   }
 

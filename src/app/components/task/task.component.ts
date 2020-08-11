@@ -29,7 +29,7 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {}
 
   emitDelete(){
-    this.deleteEmitter.emit(this.task);
+    if(confirm("Are you sure?")) this.deleteEmitter.emit(this.task);
   }
 
   handlerEdit(){
