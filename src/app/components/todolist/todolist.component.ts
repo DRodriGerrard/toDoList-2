@@ -30,6 +30,10 @@ export class TodolistComponent implements OnInit {
   public tasks:Task[] = [];
   public tasktitle:string = "";
 
+  public allCompleted:boolean = false;
+  public hidde:boolean = false;
+  public hidden:boolean = false;
+
   constructor(private _taskService: TaskService) { }
 
   ngOnInit(): void {
@@ -58,12 +62,22 @@ export class TodolistComponent implements OnInit {
     .then((data:Task[])=>{
       this.tasks = data
     })
-    .finally(()=>{
+    .then(()=>{
       if(this.tasks != undefined){
         this.container.clear();
         this.container.createEmbeddedView(this.taskT);
       }
     })
+    .finally(()=>this.reviseTasks())
+  }
+
+  private reviseTasks(){
+    if(this.tasks.every(task => task.completed)) this.allCompleted = true;
+    else this.allCompleted = false;
+    if (this.tasks.some(task => task.completed)) this.hidde = true;
+    else this.hidde = false;
+    if (this.tasks.some(task => task.hidden)) this.hidden = true;
+    else this.hidden = false;
   }
 
   async removeTask(event:Task){
@@ -85,6 +99,48 @@ export class TodolistComponent implements OnInit {
       await this._taskService.deleteAllTasks(arrID)
       .finally(()=>this.receiveTasks())
     } 
+  }
+
+  /*async editAllTasks(){
+    this.tasks.forEach((task:Task)=>{
+      if(!task.completed) task.completed = true;
+      else task.completed = false;
+    })
+    await this._taskService.patchAllTasks(this.tasks)
+    .finally(()=>this.receiveTasks())
+  }*/
+
+  async editAllTasks(){
+    if(this.allCompleted === false) {
+      this.allCompleted = true;
+      this.tasks.forEach(async task => {
+        task.completed = true;
+      })
+      this._taskService.patchAllTasks(this.tasks)
+      .finally( () => this.receiveTasks())
+    }
+    else {
+      this.allCompleted = false;
+      this.tasks.forEach(async task => {
+        task.completed = false;
+      })
+      this._taskService.patchAllTasks(this.tasks)
+      .finally( () => this.receiveTasks())
+    }
+  }
+
+  async hiddeCompleted(){
+    this.tasks.forEach((task:Task)=>{
+      if(task.completed) task.hidden = true;
+    })
+    await this._taskService.patchAllTasks(this.tasks)
+    .finally(()=>this.receiveTasks())
+  }
+
+  async showCompleted(){
+    this.tasks.forEach((task:Task)=> task.hidden = false)
+    await this._taskService.patchAllTasks(this.tasks)
+    .finally(()=>this.receiveTasks())
   }
 
 }
