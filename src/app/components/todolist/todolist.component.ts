@@ -4,6 +4,12 @@ import { Task } from "../../../../interfaces/task";
 import { v4 as uuidv4 } from "uuid";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { Observable } from "rxjs";
+import { forkJoin } from "rxjs";
 
 @Component({
   selector: "app-todolist",
@@ -18,6 +24,10 @@ export class TodolistComponent implements OnInit {
 
   faPlus = faPlus;
   faEraser = faEraser;
+  faTrash = faTrash;
+  faCheck = faCheck;
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
 
   public tasks:Task[] = [];
   public tasktitle:string = "";
@@ -28,7 +38,7 @@ export class TodolistComponent implements OnInit {
     this.receiveTasks();
   }
 
-  addTask(){
+  async addTask(){
     const newDate = new Date();
     const finalDate = newDate.getFullYear()+"-"+newDate.getMonth()+"-"+newDate.getDate()+" at "
     + newDate.getHours()+":"+newDate.getMinutes()+":"+newDate.getSeconds();
@@ -41,12 +51,12 @@ export class TodolistComponent implements OnInit {
       created: finalDate
     }
     this.tasktitle = "";
-    this._taskService.postTasks(newTask)
+    await this._taskService.postTasks(newTask)
     .finally(()=>this.receiveTasks())
   }
 
-  receiveTasks(){
-    this._taskService.getTasks()
+  async receiveTasks(){
+    await this._taskService.getTasks()
     .then((data:Task[])=>{
       this.tasks = data
     })
@@ -58,14 +68,25 @@ export class TodolistComponent implements OnInit {
     })
   }
 
-  removeTask(event:Task){
-    this._taskService.deleteTasks(event)
+  async removeTask(event:Task){
+    await this._taskService.deleteTask(event)
     .then(()=>this.receiveTasks())
   }
 
-  editTask(event:Task){
-    this._taskService.patchTask(event)
+  async editTask(event:Task){
+    await this._taskService.patchTask(event)
     .then(()=>this.receiveTasks())
+  }
+
+  async removeAllTasks(){
+    if(confirm("Are you sure do you want to delete all your tasks?")){
+      const arrID = [];
+      this.tasks.forEach(task=>{
+        arrID.push(task.id)
+      })
+      await this._taskService.deleteAllTasks(arrID)
+      .finally(()=>this.receiveTasks())
+    } 
   }
 
 }

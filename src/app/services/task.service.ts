@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from  "@angular/common/http";
-import { Task } from 'interfaces/task';
+import { Task } from "interfaces/task";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -8,6 +9,8 @@ import { Task } from 'interfaces/task';
 export class TaskService {
 
   private httpURL = "http://localhost:3000/tasks";
+
+  public result$: Observable<Task[]>;
 
   constructor(private _httpClient: HttpClient) {}
 
@@ -27,7 +30,7 @@ export class TaskService {
     });
   }
 
-  public postTasks(newTask) {
+  public postTasks(newTask:Task) {
     return this._httpClient.post<Task>(this.httpURL, newTask)
     .toPromise()
     .then(() => {
@@ -38,24 +41,35 @@ export class TaskService {
     });
   }
 
-  public deleteTasks(task) {
+  public deleteTask(task:Task) {
     return this._httpClient.delete<Task>(this.httpURL+"/"+task.id)
     .toPromise()
-    .then(() => {
-      alert("task deleted successfully!");
-    })
     .catch((error) => {
       this.httpError(error);
     });
   }
 
-  public patchTask(task) {
+  public patchTask(task:Task) {
     return this._httpClient.patch<Task>(this.httpURL+'/'+task.id, task)
     .toPromise()
     .then(() => {
       alert("task updated successfully!");
     })
     .catch((error) => {
+      this.httpError(error);
+    });
+  }
+
+  public deleteAllTasks(tasksID:string[]){
+    console.log(tasksID);
+    const promises = [];
+    tasksID.forEach(taskId =>{
+      promises.push(this._httpClient.delete(this.httpURL+"/"+taskId).toPromise())
+    })
+    return Promise.all(promises)
+    .then(()=> alert("All tasks deleted sucefully!"))
+    .catch((error) => {
+      console.log("puta mierda");
       this.httpError(error);
     });
   }
