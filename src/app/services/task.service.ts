@@ -52,6 +52,9 @@ export class TaskService {
   public patchTask(task) {
     return this._httpClient.patch<Task>(this.httpURL+'/'+task.id, task)
     .toPromise()
+    .then(() => {
+      alert("task updated successfully!");
+    })
     .catch((error) => {
       this.httpError(error);
     });
