@@ -26,5 +26,22 @@
   }
 }
 
+.row{
+  margin-bottom: 5px;
+  
+  .col-sm > .buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 3px;
+    float: right;
+
+    .col-sm > .buttons > button {  
+      width: 46px;
+      height: @buttonh;
+    }
+  }
+}
+
+
 
 

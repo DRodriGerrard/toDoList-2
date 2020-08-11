@@ -19,6 +19,24 @@
  </div>
 
  <ng-template #taskTemplate>
+  <div class="row">
+   <div class="col-sm">
+    <div class="buttons">
+     <button type="button" class="btn btn-success">
+      <fa-icon [icon]="faCheck"></fa-icon>
+     </button>
+     <button type="button" class="btn btn-secondary">
+      <fa-icon [icon]="faEyeSlash"></fa-icon>
+     </button>
+     <button type="button" class="btn btn-info">
+      <fa-icon [icon]="faEye"></fa-icon>
+     </button>
+     <button type="button" class="btn btn-danger" (click)="removeAllTasks()">
+      <fa-icon [icon]="faTrash"></fa-icon>
+     </button>
+    </div>
+   </div>
+  </div>
   <app-task *ngFor="let task of tasks" 
   [task]="task"
   (deleteEmitter)="removeTask($event)"
