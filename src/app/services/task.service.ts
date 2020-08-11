@@ -52,22 +52,32 @@ export class TaskService {
   public patchTask(task:Task) {
     return this._httpClient.patch<Task>(this.httpURL+'/'+task.id, task)
     .toPromise()
-    .then(() => {
-      alert("task updated successfully!");
-    })
+    .then()
     .catch((error) => {
       this.httpError(error);
     });
   }
 
   public deleteAllTasks(tasksID:string[]){
-    console.log(tasksID);
     const promises = [];
     tasksID.forEach(taskId =>{
       promises.push(this._httpClient.delete(this.httpURL+"/"+taskId).toPromise())
     })
     return Promise.all(promises)
     .then(()=> alert("All tasks deleted sucefully!"))
+    .catch((error) => {
+      console.log("puta mierda");
+      this.httpError(error);
+    });
+  }
+
+  public patchAllTasks(tasks:Task[]){
+    const promises = [];
+    tasks.forEach(task =>{
+      promises.push(this._httpClient.patch(this.httpURL+"/"+task.id, task).toPromise())
+    })
+    return Promise.all(promises)
+    .then()
     .catch((error) => {
       console.log("puta mierda");
       this.httpError(error);
