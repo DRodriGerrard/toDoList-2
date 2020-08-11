@@ -8,8 +8,6 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Observable } from "rxjs";
-import { forkJoin } from "rxjs";
 
 @Component({
   selector: "app-todolist",
